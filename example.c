@@ -1,11 +1,5 @@
-# cds
-A dynamic structures library in C.
-
-## Vector Example
-
-``` C
 #include <stdio.h>
-#include "vector.h"
+#include "src/vector.h"
 
 int main() {
 	size_t i, n;
@@ -22,18 +16,3 @@ int main() {
 		printf("%d\n", * (int *) vget(&v, i));
 	}
 }
-
-```
-
-```
-0
-3
-6
-9
-12
-15
-18
-21
-24
-27
-```
