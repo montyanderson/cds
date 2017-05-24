@@ -44,7 +44,7 @@ int main() {
 
 ``` C
 #include <stdio.h>
-#include "src/vector.h"
+#include "vector.h"
 
 struct User {
 	char name[30];
