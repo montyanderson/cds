@@ -12,7 +12,7 @@ void vinit(Vector *v, size_t member) {
 	v->array = malloc(_vsize(v));
 }
 
-ssize_t vpush(Vector *v, void *data) {
+void vpush(Vector *v, void *data) {
 	size_t index = v->length++;
 
 	if(v->container < v->length) {
@@ -21,16 +21,44 @@ ssize_t vpush(Vector *v, void *data) {
 	}
 
 	memcpy(v->array + (v->member * index), data, v->member);
+}
 
-	return (v->array == NULL) ? -1 : index;
+size_t vunshift(Vector *v, void *data) {
+	v->length++;
+
+	if(v->container < v->length) {
+		v->container *= 2;
+		v->array = realloc(v->array, _vsize(v));
+	}
+
+	for(size_t i = v->length - 1; i > 0; i--) {
+		memcpy(v->array + (v->member * i), v->array + (v->member * (i - 1)), v->member);
+	}
+
+	memcpy(v->array, data, v->member);
+
+	return v->length;
+}
+
+size_t vinsert(Vector *v, size_t index, void *data) {
+	v->length = index >= v->length ? index + 1 : v->length + 1;
+
+	if(v->container < v->length) {
+		v->container *= 2;
+		v->array = realloc(v->array, _vsize(v));
+	}
+
+	for(size_t i = v->length - 1; i > index; i--) {
+		memcpy(v->array + (v->member * i), v->array + (v->member * (i - 1)), v->member);
+	}
+
+	memcpy(v->array + (v->member * index), data, v->member);
+
+	return v->length;
 }
 
 void *vget(Vector *v, size_t index) {
-	if(index >= v->length) {
-		return NULL;
-	} else {
-		return v->array + (v->member * index);
-	}
+	return (index >= v->length) ? NULL : v->array + (v->member * index);
 }
 
 void *vset(Vector *v, size_t index, void *data) {

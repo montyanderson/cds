@@ -17,8 +17,8 @@ int main() {
 	vinit(&v, sizeof(struct User));
 
 	vpush(&v, &John);
-	vpush(&v, &Sarah);
-	vpush(&v, &Maddy);
+	vunshift(&v, &Sarah);
+	vinsert(&v, 2, &Maddy);
 
 	for(size_t i = 0; i < v.length; i++) {
 		user = * (struct User *) vget(&v, i);
