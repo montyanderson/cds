@@ -69,7 +69,7 @@ int main() {
 	vpush(&v, &Maddy);
 
 	for(size_t i = 0; i < v.length; i++) {
-		user = * (struct User *) vget(&v, i);
+		vget(&v, i, &user);
 
 		printf("Name: %s\n", user.name);
 		printf("Age: %u\n\n", user.age);
