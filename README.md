@@ -10,7 +10,8 @@ A dynamic structures library in C.
 #include "vector.h"
 
 int main() {
-	size_t i, n;
+	size_t i;
+	int n;
 	Vector v;
 
 	vinit(&v, sizeof(int));
@@ -21,7 +22,9 @@ int main() {
 	}
 
 	for(i = 0; i < v.length; i++) {
-		printf("%d\n", * (int *) vget(&v, i));
+		vget(&v, i, &n);
+
+		printf("%d\n", n);
 	}
 }
 

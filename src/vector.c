@@ -57,11 +57,17 @@ size_t vinsert(Vector *v, size_t index, void *data) {
 	return v->length;
 }
 
-void *vget(Vector *v, size_t index) {
-	return (index >= v->length) ? NULL : v->array + (v->member * index);
+int vget(Vector *v, size_t index, void *dest) {
+	if(index >= v->length) {
+		return 0;
+	}
+
+	memcpy(dest, v->array + (v->member * index), v->member);
+
+	return 1;
 }
 
-void *vset(Vector *v, size_t index, void *data) {
+int vset(Vector *v, size_t index, void *data) {
 	if(index >= v->length) {
 		v->length = index + 1;
 
@@ -70,14 +76,14 @@ void *vset(Vector *v, size_t index, void *data) {
 		}
 
 		if((v->array = realloc(v->array, _vsize(v))) == NULL) {
-			return NULL;
+			return 0;
 		}
 	}
 
 	void *element = v->array + (v->member * index);
 	memcpy(element, data, v->member);
 
-	return element;
+	return 1;
 }
 
 void vfree(Vector *v) {

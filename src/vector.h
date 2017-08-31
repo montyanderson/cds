@@ -13,8 +13,9 @@ typedef struct {
 void vinit(Vector *v, size_t member);
 void vpush(Vector *v, void *data);
 size_t vunshift(Vector *v, void *data);
-void *vget(Vector *v, size_t index);
-void *vset(Vector *v, size_t index, void *data);
+size_t vinsert(Vector *v, size_t index, void *data);
+int vget(Vector *v, size_t index, void *dest);
+int vset(Vector *v, size_t index, void *data);
 void vfree(Vector *v);
 
 #endif
